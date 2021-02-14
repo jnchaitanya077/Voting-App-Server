@@ -33,9 +33,8 @@ const candidatesSchema = new mongoose.Schema({
 
 }, { collection: 'candidates' });
 
-const secret = process.env.KEY
 
-userSchema.plugin(encrypt, { encryptionKey: secret, encryptedFields: ['password'] })
+userSchema.plugin(encrypt, { encryptionKey: KEY, encryptedFields: ['password'] })
 
 const User = mongoose.model("user", userSchema);
 const Candidate = mongoose.model("candidate", candidatesSchema);
