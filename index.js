@@ -38,6 +38,13 @@ const candidatesSchema = new mongoose.Schema({
 const User = mongoose.model("user", userSchema);
 const Candidate = mongoose.model("candidate", candidatesSchema);
 
+
+
+app.get("/", (req, res) => {
+    res.send("Server is up and running");
+})
+
+
 app.post("/login", (req, res) => {
     const username = req.body.email;
     const password = req.body.password;
