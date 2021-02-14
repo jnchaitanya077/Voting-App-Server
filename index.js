@@ -34,7 +34,7 @@ const candidatesSchema = new mongoose.Schema({
 }, { collection: 'candidates' });
 
 
-userSchema.plugin(encrypt, { encryptionKey: KEY, encryptedFields: ['password'] })
+userSchema.plugin(encrypt, { secret: KEY, encryptedFields: ['password'] })
 
 const User = mongoose.model("user", userSchema);
 const Candidate = mongoose.model("candidate", candidatesSchema);
