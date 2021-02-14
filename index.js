@@ -20,7 +20,7 @@ mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(console.log("Successfully connected to DB"))
     .catch(e => console.log(e))
 
-const userSchema = mongoose.Schema({
+const userSchema = new mongoose.Schema({
     email: String,
     password: String,
     isVoted: Boolean,
@@ -33,7 +33,9 @@ const candidatesSchema = new mongoose.Schema({
 
 }, { collection: 'candidates' });
 
+const secret = process.env.KEY
 
+userSchema.plugin(encrypt, { encryptionKey: secret, encryptedFields: ['password'] })
 
 const User = mongoose.model("user", userSchema);
 const Candidate = mongoose.model("candidate", candidatesSchema);
@@ -137,13 +139,7 @@ app.post("/vote", (req, res) => {
         }
     })
 
-
-
 })
-
-
-
-
 
 
 
