@@ -51,17 +51,21 @@ app.post("/login", (req, res) => {
     const password = req.body.password;
     // console.log(username, password);
     User.findOne({ email: username }, (err, foundUser) => {
-        if (!err) {
+        if (!err && foundUser) {
             if (foundUser.password === password) {
                 const isVoted = foundUser.isVoted
                 res.send({ status: "200", msg: "Login Success", email: username, isVoted: isVoted })
 
             } else {
                 console.log("fail")
-                res.send({ status: "400", msg: "invaild password" })
+                res.send({ status: "400", msg: "Wrong Credentials" })
             }
         } else {
-            console.log(err)
+            if (!foundUser) {
+                res.send({ status: "400", msg: "User Doesn't exists. Please Register. " })
+            } else {
+                console.log(err)
+            }
         }
     })
 })
